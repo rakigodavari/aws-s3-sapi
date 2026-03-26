@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:s3="http://www.mulesoft.org/schema/mule/s3"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<s3:config name="Amazon_S3_Configuration" doc:name="Amazon S3 Configuration" doc:id="04e8b1f1-ce20-4215-8369-3fff364b4175" >
+		<s3:connection accessKey="AKIAY2GPQC53C4BJVFA4" secretKey="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" region="us-east-2"/>
+	</s3:config>
+	<http:request-config name="HTTP_Request_Configuration" doc:name="HTTP Request config" doc:id="63edf343-064d-4c2a-ac9c-fb9ebc7d0866" >
+		<http:request-connection protocol="HTTPS" host="aws-s3-sapi.s3.us-east-2.amazonaws.com" port="80"/>
+	</http:request-config>
+	<flow name="get-s3-objects-list" doc:id="e0a76888-0e6b-4cef-bdec-a911d981245f" >
+		<logger level="INFO" doc:name="Get Objects List" doc:id="cf52747c-e0f8-4e54-a344-e35fea315c51" message='#["Get Objects List from Bucket:" ++ vars.bucketName]'/>
+		<s3:list-objects doc:name="List Objects" doc:id="30555031-d108-4b52-a63d-962ae9c6b381" config-ref="Amazon_S3_Configuration" bucketName="#[vars.bucketName]"/>
+		<ee:transform doc:name="Transform Message" doc:id="9e0173b1-87bf-4f14-8772-753a63f300e0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload.key]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="get-s3-objectByKey" doc:id="b44b3a4d-14cf-4068-8c05-4bee7fb78dc9" >
+		<logger level="INFO" doc:name="Get Object from S3" doc:id="28d7ef9d-557d-4757-b387-53dc6823bd64" message='#["Object requested: "  ++ vars.objectKey]'/>
+		<s3:get-object doc:name="Get Object" doc:id="6c2a093f-0968-44f5-ac5e-ede31145923c" config-ref="Amazon_S3_Configuration" bucketName="#[vars.bucketName]" key="#[vars.objectKey]"/>
+	</flow>
+	<flow name="get-s3-object-attributes" doc:id="7ce759d6-89f6-47c2-a4bd-f5c08a8ad244" >
+		<logger level="INFO" doc:name="Get S3 Object attributes" doc:id="847fb19b-f491-45cd-80cf-3dfdab986a62" message='#["Object Attributes for: "  ++ vars.objectKey]'/>
+		<s3:get-object doc:name="Get Object" doc:id="0f290904-7692-48ca-a6cb-6398324c0a27" config-ref="Amazon_S3_Configuration" bucketName="#[vars.bucketName]" key="#[vars.objectKey]" />
+		<ee:transform doc:name="Get object Attributes" doc:id="39a37ef6-db63-4a0a-b1d9-960b546265f3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"versionId": attributes.versionId,
+	"contentType": attributes.contentType,
+	"eTag": attributes.eTag,
+	"metadata": attributes.metadata,
+	"objectLength": attributes.contentLength,
+	"lastModified": attributes.lastModified
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
