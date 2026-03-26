@@ -7,11 +7,13 @@ http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/cu
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<s3:config name="Amazon_S3_Configuration" doc:name="Amazon S3 Configuration" doc:id="04e8b1f1-ce20-4215-8369-3fff364b4175" >
-		<s3:connection accessKey="AKIAY2GPQC53C4BJVFA4" secretKey="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" region="us-east-2"/>
+		<s3:connection accessKey="${s3.accessKey}" secretKey="${s3.secretKey}" region="${s3.region}"/>
 	</s3:config>
 	<http:request-config name="HTTP_Request_Configuration" doc:name="HTTP Request config" doc:id="63edf343-064d-4c2a-ac9c-fb9ebc7d0866" >
 		<http:request-connection protocol="HTTPS" host="aws-s3-sapi.s3.us-east-2.amazonaws.com" port="80"/>
 	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="d4e343cb-eca5-4a6c-ab0f-bc739ddc8a78" file="config-${env}.properties" />
+	<global-property doc:name="Global Property" doc:id="4f3249d9-5be0-4881-b325-6be0501298e9" name="env" value="dev" />
 	<flow name="get-s3-objects-list" doc:id="e0a76888-0e6b-4cef-bdec-a911d981245f" >
 		<logger level="INFO" doc:name="Get Objects List" doc:id="cf52747c-e0f8-4e54-a344-e35fea315c51" message='#["Get Objects List from Bucket:" ++ vars.bucketName]'/>
 		<s3:list-objects doc:name="List Objects" doc:id="30555031-d108-4b52-a63d-962ae9c6b381" config-ref="Amazon_S3_Configuration" bucketName="#[vars.bucketName]"/>
