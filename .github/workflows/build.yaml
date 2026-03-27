@@ -1,0 +1,12 @@
+name: Deploy and Update API Manager
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  ANYPOINT_CLIENT_ID: ${{ secrets.CONNECTED_APP_CLIENT_ID }}
+  ANYPOINT_CLIENT_SECRET: ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+  ANYPOINT_ENV: Sandbox
+  REST_API_ARTIFACT_ID: aws-s3-sapi
+  API_MANAGER_API_ID: 
