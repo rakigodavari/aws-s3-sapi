@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns:s3="http://www.mulesoft.org/schema/mule/s3"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:s3="http://www.mulesoft.org/schema/mule/s3" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<s3:config name="Amazon_S3_Configuration" doc:name="Amazon S3 Configuration" doc:id="04e8b1f1-ce20-4215-8369-3fff364b4175" >
-		<s3:connection accessKey="AKIAY2GPQC53C4BJVFA4" secretKey="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" region="us-east-2"/>
-	</s3:config>
-	<http:request-config name="HTTP_Request_Configuration" doc:name="HTTP Request config" doc:id="63edf343-064d-4c2a-ac9c-fb9ebc7d0866" >
-		<http:request-connection protocol="HTTPS" host="aws-s3-sapi.s3.us-east-2.amazonaws.com" port="80"/>
-	</http:request-config>
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
 	<flow name="get-s3-objects-list" doc:id="e0a76888-0e6b-4cef-bdec-a911d981245f" >
 		<logger level="INFO" doc:name="Get Objects List" doc:id="cf52747c-e0f8-4e54-a344-e35fea315c51" message='#["Get Objects List from Bucket:" ++ vars.bucketName]'/>
 		<s3:list-objects doc:name="List Objects" doc:id="30555031-d108-4b52-a63d-962ae9c6b381" config-ref="Amazon_S3_Configuration" bucketName="#[vars.bucketName]"/>
