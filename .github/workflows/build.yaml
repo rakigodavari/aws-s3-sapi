@@ -15,14 +15,22 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Install api-catalog cli
+      - name: Install Anypoint CLI
+        run: npm install -g anypoint-cli-v4
+        
+      - name: Login to Anypoint
         run: |
-          sudo apt-get update
-          npm install -g api-catalog-cli@latest
-      - name: Publish API to Anypoint Exchange
-        env: 
-          ANYPOINT_USERNAME: ${{ secrets.ANYPOINT_USERNAME }} 
-          ANYPOINT_PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
-          ANYPOINT_ORG_ID: ${{ secrets.ANYPOINT_ORGID }}
+          anypoint-cli-v4 login \
+          --client_id ${{ secrets.CONNECTED_APP_CLIENT_ID }} \
+          --client_secret ${{ secrets.CONNECTED_APP_CLIENT_SECRET }}
+
+      - name: Deploy to CloudHub
         run: |
-          api-catalog publish-asset --organization="$ANYPOINT_ORG_ID" --username="$ANYPOINT_USERNAME" --password="$ANYPOINT_PASSWORD"
+          anypoint-cli-v4 runtime-mgr application deploy \
+          aws-s3-s \
+          target/aws-s3-s-1.0.0-mule-application.jar \
+          --runtime 4.4.0 \
+          --workers 1 \
+          --workerSize 0.1 \
+          --region us-east-2 \
+          --property env=dev
