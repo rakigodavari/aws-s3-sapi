@@ -1,0 +1,34 @@
+name: Deploy and Update API Manager
+
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  publish-apis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Install Anypoint CLI
+      run: npm install -g anypoint-cli@4.x # Installs the latest version of the Anypoint CLI 4.x
+
+    - name: Authenticate and Publish Assets
+      env:
+        ANYPOINT_USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
+        ANYPOINT_PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
+        ANYPOINT_ORGID: ${{ secrets.ANYPOINT_ORGID }}
+      run: |
+        # Authenticate using the CLI and secrets
+        anypoint-cli-v4 conf username $ANYPOINT_USERNAME
+        anypoint-cli-v4 conf password $ANYPOINT_PASSWORD
+        anypoint-cli-v4 conf organization $ANYPOINT_ORGID
+
+        # Use the anypoint-cli-v4 catalog command to publish assets
+        # Assumes a catalog.yaml file exists in the root directory
+        anypoint-cli-v4 catalog:asset:publish --file=catalog.yaml
+
+  
+  
