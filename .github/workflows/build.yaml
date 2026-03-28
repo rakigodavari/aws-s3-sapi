@@ -14,8 +14,6 @@ jobs:
 
     - name: Install Anypoint CLI
       run: npm install -g anypoint-cli-v4 
-      # Installs the latest version of the Anypoint CLI 4.x
-      #npm install -g anypoint-cli-v4
     - name: Authenticate and Publish Assets
       env:
         ANYPOINT_USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
@@ -28,7 +26,5 @@ jobs:
         anypoint-cli-v4 conf organization $ANYPOINT_ORGID
         # Use the anypoint-cli-v4 catalog command to publish assets
         # Assumes a catalog.yaml file exists in the root directory
-        anypoint-cli-v4 catalog:asset:publish --file=catalog.yaml
-
-  
-  
+        # anypoint-cli-v4 catalog:asset:publish --file=catalog.yaml
+        api-catalog publish-asset --organization="$ANYPOINT_ORG_ID" --username="$ANYPOINT_USERNAME" --password="$ANYPOINT_PASSWORD"
