@@ -30,7 +30,5 @@ jobs:
           aws-s3-s \
           target/aws-s3-s-1.0.0-mule-application.jar \
           --runtime 4.4.0 \
-          --workers 1 \
-          --workerSize 0.1 \
           --region us-east-2 \
-          --property env=dev
+          --property env=Sandbox
