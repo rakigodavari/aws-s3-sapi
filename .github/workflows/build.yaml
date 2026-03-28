@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install Anypoint CLI
-      run: npm install -g anypoint-cli@4.x # Installs the latest version of the Anypoint CLI 4.x
+      run: npm install -g anypoint-cli@4.0 # Installs the latest version of the Anypoint CLI 4.x
 
     - name: Authenticate and Publish Assets
       env:
