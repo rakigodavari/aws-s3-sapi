@@ -26,7 +26,6 @@ jobs:
         anypoint-cli-v4 conf username $ANYPOINT_USERNAME
         anypoint-cli-v4 conf password $ANYPOINT_PASSWORD
         anypoint-cli-v4 conf organization $ANYPOINT_ORGID
-
         # Use the anypoint-cli-v4 catalog command to publish assets
         # Assumes a catalog.yaml file exists in the root directory
         anypoint-cli-v4 catalog:asset:publish --file=catalog.yaml
