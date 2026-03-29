@@ -2,8 +2,8 @@
     <servers>
         <server>
             <id>anypoint-exchange-v3</id>
-            <username>${env.MULE_NEXUS_USERNAME}</username>
-            <password>${env.MULE_NEXUS_PASSWORD}</password>
+            <username>${secrets.MULE_NEXUS_USERNAME}</username>
+            <password>${secrets.MULE_NEXUS_PASSWORD}</password>
         </server>
         <!-- Add other server configurations as needed -->
     </servers>
