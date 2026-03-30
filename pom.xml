@@ -32,10 +32,11 @@
 				<configuration>
 					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
+						<target>CloudHub 2.0</target>
 						<muleVersion>${app.runtime}</muleVersion>
 						<!-- Start: CONNECTED APP -->
-						<connectedAppClientId>${client.id}</connectedAppClientId>
-						<connectedAppClientSecret>${client.secret}</connectedAppClientSecret>
+						<username>${CONNECTED_APP_CLIENT_ID}</username>
+				        <password>${CONNECTED_APP_CLIENT_SECRET}</password>
 						<connectedAppGrantType>client_credentials</connectedAppGrantType>
 						<!-- End: CONNECTED APP -->
 						<applicationName>${app.name}</applicationName>
