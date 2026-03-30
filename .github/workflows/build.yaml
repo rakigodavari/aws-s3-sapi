@@ -1,4 +1,4 @@
-name: Mule CI/CD Deployment with Maven based GitHub Actions
+name: Anypoint CI/CD with Maven and GitHub Actions
 
 on:
   push:
