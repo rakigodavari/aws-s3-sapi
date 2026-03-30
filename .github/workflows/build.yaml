@@ -1,29 +1,38 @@
-name: Anypoint CI/CD Deployment Workflow with Maven
+name: Publish to Exchange & Deploy to CH2.0
 
 on:
   push:
-    branches:
-      - dev # Triggers the workflow on push to the main branch
-
-jobs:
+    branches: [ cloudhub2 ]
+    
+jobs:         
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout this repo
         uses: actions/checkout@v4
 
-      - name: Set up JDK 11
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Set up JDK 1.8
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: 'maven'
+          distribution: "zulu"
+          java-version: 8
+      
+      - name: Publish to Exchange
+        run: |
+          mvn deploy --settings .maven/settings.xml -DskipMunitTests \
+          -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
+          -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}"
 
-      - name: Maven Build
-        run: mvn clean package -DskipMunitTests=true # Skip MUnit tests for build job, run in separate job for CI/CD pipeline
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: mule-artifact
-          path: target/*.jar
+      - name: Deploy to CloudHub 2.0
+        run: |
+          mvn deploy --settings .maven/settings.xml -DskipMunitTests -DmuleDeploy \
+          -Dclient.id="${{ secrets.CONNECTED_APP_CLIENT_ID }}" \
+          -Dclient.secret="${{ secrets.CONNECTED_APP_CLIENT_SECRET }}" \
+          -Ddecryption.key="${{ secrets.DECRYPTION_KEY }}"
