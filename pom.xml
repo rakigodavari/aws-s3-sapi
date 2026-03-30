@@ -43,6 +43,7 @@
 						<environment>${env}</environment>
 						<region>us-east-2</region> 
 						<objectStoreV2>true</objectStoreV2>
+						<server>anypoint-exchange-v3</server>
 					</cloudHubDeployment>
 					<classifier>mule-application</classifier>
 				</configuration>
