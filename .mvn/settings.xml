@@ -1,7 +1,7 @@
 <settings>
     <servers>
         <server>
-            <id>anypoint-exchange-v3</id>
+            <id>anypoint-exchange-v4</id>
             <username>${secrets.ANYPOINT_USERNAME}</username>
             <password>${secrets.ANYPOINT_PASSWORD}</password>
         </server>
