@@ -54,3 +54,5 @@ jobs:
           ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
           ANYPOINT_ENV: ${{ secrets.ANYPOINT_ENV }}
           MULE_APP_NAME: ${{ secrets.MULE_APP_NAME }}
+
+          # Add other credentials if needed
