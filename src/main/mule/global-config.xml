@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:s3="http://www.mulesoft.org/schema/mule/s3" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd">
+	<http:listener-config name="aws-s3-sapi-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <apikit:config name="aws-s3-sapi-config" api="resource::6d20974e-34c3-4c3e-98a0-390e788adff0:aws-s3-sapi:1.0.0:raml:zip:aws-s3-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<s3:config name="Amazon_S3_Configuration" doc:name="Amazon S3 Configuration" doc:id="04e8b1f1-ce20-4215-8369-3fff364b4175">
+		<s3:connection accessKey="${secure::s3.accessKey}" secretKey="${secure::s3.secretKey}" region="${s3.region}"/>
+	</s3:config>
+	<http:request-config name="HTTP_Request_Configuration" doc:name="HTTP Request config" doc:id="63edf343-064d-4c2a-ac9c-fb9ebc7d0866" >
+		<http:request-connection protocol="HTTPS" host="aws-s3-sapi.s3.us-east-2.amazonaws.com" port="80"/>
+	</http:request-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="d4e343cb-eca5-4a6c-ab0f-bc739ddc8a78" file="config-${env}.properties" />
+	<global-property doc:name="Global Property" doc:id="4f3249d9-5be0-4881-b325-6be0501298e9" name="env" value="dev" />
+	<global-property doc:name="Global Property" doc:id="ec4551f1-ebf5-439a-9efd-2956a0671ee4" name="mule.key" value="LeoG@13032021+++" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="d8523c90-70b4-4811-a528-762c01dea2f4" file="config-${env}-secure.properties" key="${mule.key}" />
+	
+	</mule>

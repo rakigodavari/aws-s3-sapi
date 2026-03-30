@@ -1,0 +1,58 @@
+%dw 2.0
+
+type auto_7ce759d6_89f6_47c2_a4bd_f5c08a8ad244_Output_Payload = {|
+  checksum?: org_mule_extension_s3_api_model_ApiChecksum {"class": "org.mule.extension.s3.api.model.ApiChecksum",
+  "typeAlias": "checksum",
+  "typeId": "org.mule.extension.s3.api.model.ApiChecksum"}, 
+  deleteMarker?: Boolean {"typeId": "boolean"}, 
+  eTag?: String, 
+  lastModified?: DateTime {"typeId": "java.time.Instant"}, 
+  objectParts?: org_mule_extension_s3_api_model_ApiGetObjectAttributesParts {"typeId": "org.mule.extension.s3.api.model.ApiGetObjectAttributesParts",
+  "class": "org.mule.extension.s3.api.model.ApiGetObjectAttributesParts",
+  "typeAlias": "get-object-attributes-parts"}, 
+  objectSize?: Number, 
+  requestCharged?: String, 
+  storageClass?: String, 
+  versionId?: String
+|} {"typeId": "org.mule.extension.s3.api.response.GetObjectAttributesResponse",
+"class": "org.mule.extension.s3.api.response.GetObjectAttributesResponse",
+"typeAlias": "GetObjectAttributesResponse"}
+type org_mule_extension_s3_api_model_ApiGetObjectAttributesParts = {|
+  maxParts?: Number, 
+  nextPartNumberMarker?: Number, 
+  partNumberMarker?: Number, 
+  parts?: Array<org_mule_extension_s3_api_model_ApiObjectPart {"typeId": "org.mule.extension.s3.api.model.ApiObjectPart",
+  "class": "org.mule.extension.s3.api.model.ApiObjectPart",
+  "typeAlias": "object-part"}>, 
+  totalPartsCount?: Number, 
+  truncated?: Boolean {"typeId": "boolean"}
+|} {"typeId": "org.mule.extension.s3.api.model.ApiGetObjectAttributesParts",
+"class": "org.mule.extension.s3.api.model.ApiGetObjectAttributesParts",
+"typeAlias": "get-object-attributes-parts"}
+type org_mule_extension_s3_api_model_ApiObjectPart = {|
+  checksumCRC32?: String, 
+  checksumCRC32C?: String, 
+  checksumSHA1?: String, 
+  checksumSHA256?: String, 
+  eTag?: String, 
+  lastModified?: String, 
+  partNumber?: Number, 
+  size?: Number
+|} {"typeId": "org.mule.extension.s3.api.model.ApiObjectPart",
+"class": "org.mule.extension.s3.api.model.ApiObjectPart",
+"typeAlias": "object-part"}
+
+
+
+
+type org_mule_extension_s3_api_model_ApiChecksum = {|
+  checksumCRC32?: String, 
+  checksumCRC32C?: String, 
+  checksumSHA1?: String, 
+  checksumSHA256?: String
+|} {"class": "org.mule.extension.s3.api.model.ApiChecksum",
+"typeAlias": "checksum",
+"typeId": "org.mule.extension.s3.api.model.ApiChecksum"}
+
+
+

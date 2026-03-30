@@ -1,0 +1,26 @@
+%dw 2.0
+
+type auto_e0a76888_0e6b_4cef_bdec_a911d981245f_Output_Payload = Array<org_mule_extension_s3_api_model_ApiS3Object {"typeAlias": "S3-object",
+"class": "org.mule.extension.s3.api.model.ApiS3Object",
+"typeId": "org.mule.extension.s3.api.model.ApiS3Object"}>
+type org_mule_extension_s3_api_model_ApiS3Object = {|
+  checksumAlgorithm?: Array<String>, 
+  eTag?: String, 
+  key?: String, 
+  lastModified?: DateTime {"typeId": "java.time.Instant"}, 
+  owner?: org_mule_extension_s3_api_model_ApiOwner {"class": "org.mule.extension.s3.api.model.ApiOwner",
+  "typeAlias": "owner",
+  "typeId": "org.mule.extension.s3.api.model.ApiOwner"}, 
+  size?: Number, 
+  storageClass?: String
+|} {"typeAlias": "S3-object",
+"class": "org.mule.extension.s3.api.model.ApiS3Object",
+"typeId": "org.mule.extension.s3.api.model.ApiS3Object"}
+type org_mule_extension_s3_api_model_ApiOwner = {| id?: String |} {"class": "org.mule.extension.s3.api.model.ApiOwner",
+"typeAlias": "owner",
+"typeId": "org.mule.extension.s3.api.model.ApiOwner"}
+
+
+
+
+
