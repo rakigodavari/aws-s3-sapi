@@ -3,13 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>6d20974e-34c3-4c3e-98a0-390e788adff0</groupId>
 	<artifactId>aws-s3-s</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 	<name>aws-s3-s</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<app.runtime>4.9.15</app.runtime>
+		<muleVersion>4.9.15</muleVersion>
 		<mule.maven.plugin.version>4.7.0</mule.maven.plugin.version>
 		<app.name>aws-s3-s</app.name>
 		<env>Sandbox</env>
@@ -33,9 +34,11 @@
                         <provider>MC</provider>
                         <environment>Sandbox</environment>
                         <target>Cloudhub-US-East-2</target>
+						<muleVersion>${muleVersion}</muleVersion>
+						<username>${user}</username>
+      					<password>${pass}</password>
                         <server>anypoint-exchange-v3</server>
                         <applicationName>${app.name}</applicationName>
-                        <releaseChannel>NONE</releaseChannel>
                         <replicas>1</replicas>
                         <vCores>0.1</vCores>
                         <deploymentSettings>
@@ -46,6 +49,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
@@ -85,6 +89,7 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
+	
 	<repositories>
 		<repository>
 		    <id>anypoint-exchange-v3</id>
@@ -111,6 +116,7 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+	
 	<distributionManagement>
         <repository>
             <id>anypoint-exchange-v3</id>
