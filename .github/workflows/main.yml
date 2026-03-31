@@ -20,7 +20,8 @@ jobs:
           cache: 'maven'
 
       - name: Maven Build
-        run: mvn clean package -DskipMunitTests=true # Skip MUnit tests for build job, run in separate job for CI/CD pipeline
+        run: mvn clean package -DskipMunitTests=true 
+        # Skip MUnit tests for build job, run in separate job for CI/CD pipeline
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
