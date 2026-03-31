@@ -35,9 +35,7 @@
                         <environment>Sandbox</environment>
                         <target>Cloudhub-US-East-2</target>
 						<muleVersion>${muleVersion}</muleVersion>
-						<username>${user}</username>
-      					<password>${pass}</password>
-                        <server>anypoint-exchange-v3</server>
+						<server>anypoint-exchange-v3</server>
                         <applicationName>${app.name}</applicationName>
                         <replicas>1</replicas>
                         <vCores>0.1</vCores>
